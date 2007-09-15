@@ -39,23 +39,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/%{name}.1*
 
 
-
-* Sat Aug 28 2004 Olivier Thauvin <thauvin@aerov.jussieu.fr> 2.2.1-4mdk
-- rebuild because changelog size does matter
-
-* Mon Aug 04 2003 Per Øyvind Karlsen <peroyvind@linux-mandrake.com> 2.2.1-3mdk
-- rebuild
-- cosmetics
-- fix filename of man page
-- compile with $RPM_OPT_FLAGS
-
-* Fri Dec 27 2002 Olivier Thauvin <thauvin@aerov.jussieu.fr> 2.2.1-2mdk
-- rebuild for rpm and glibc
-
-* Mon Nov 11 2002 Olivier Thauvin <thauvin@aerov.jussieu.fr> 2.2.1-1mdk
-- by Tibor Pittich <Tibor.Pittich@phuture.sk>
-	- initial import into Cooker from PLD
-	- remove PLD patches
-	- new version 2.2.1
-- remove packager and vendor tag
-- make rpmlint happy
