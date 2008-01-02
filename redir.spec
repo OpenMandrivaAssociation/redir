@@ -10,6 +10,7 @@ License:	GPL
 Group:		Networking/Other
 Source0:	http://sammy.net/~sammy/hacks/%{name}-%{version}.tar.bz2
 BuildRequires:	tcp_wrappers-devel
+BuildRoot:	%{_tmppath}/%{name}-buildroot
 URL:		http://sammy.net/~sammy/hacks
 
 %description
