@@ -1,6 +1,6 @@
 %define name redir
 %define version 2.2.1
-%define release %mkrel 7
+%define release %mkrel 8
 
 Summary:	Redirect TCP connections
 Name:		%{name}
