@@ -1,82 +1,100 @@
-%define name redir
-%define version 2.2.1
-%define release %mkrel 9
+Name:           redir
+Version:        2.2.1
+Release:        10
+Summary:        Redirect TCP connections
 
-Summary:	Redirect TCP connections
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
-License:	GPL
-Group:		Networking/Other
-Source0:	http://sammy.net/~sammy/hacks/%{name}-%{version}.tar.bz2
-BuildRequires:	tcp_wrappers-devel
-BuildRoot:	%{_tmppath}/%{name}-buildroot
-URL:		http://sammy.net/~sammy/hacks
+Group:          Networking/Other
+License:        GPL+
+URL:            http://sammy.net/~sammy/hacks/
+Source0:        http://sammy.net/~sammy/hacks/%{name}-%{version}.tar.gz
+BuildRequires: tcp_wrappers-devel
 
+#Include Debian Patches
+Patch0:         01_fix_max_bandwidth_docs.dpatch
+Patch1:         02_use_ntohs.dpatch
+Patch2:         03_fix_tcp_wrappers.dpatch
+Patch3:         04_fix_timeouts.dpatch
+Patch4:         05_pedantic.dpatch
+Patch5:         06_fix_shaper_buffer.dpatch
+Patch6:         07_cosmetics.dpatch
+Patch7:         08_add_wrappers.dpatch
+Patch8:         09_add_linux_software_map.dpatch
+Patch9:         15_deb_cosmetics.dpatch
+Patch10:        20_do_not_strip.dpatch
+Patch11:        25_fix_setsockopt.dpatch
+Patch12:        30_fix_manpage.dpatch
+#end of debian patches
+
+Patch13:        redir_gcc4.4-signedness.patch
+Patch14:        31_fix_transproxy_location.patch
 %description
-Redir redirects tcp connections coming in to a local port to a
-specified address/port combination.
+a port redirector, used to forward incoming connections to somewhere else.
+by far the cleanest piece of code here, because someone else liked it
+enough to fix it.
 
 %prep
-%setup  -q
+%setup -q
+
+# Fix docs and --help to show --max_bandwidth instead of --maxbandwidth
+%patch0 -p1
+
+#use ntohs() to generate comprehensible debug()s and syslog()s
+%patch1 -p1
+
+#fix calls to tcp wrappers
+%patch2 -p1
+
+# fix and make timeout more verbose
+%patch3 -p1
+
+#changes to make clean up compilation, include missing time.h include
+%patch4 -p1
+
+#properly allocate copyloop buffer
+%patch5 -p1
+
+#cosmestic only patch
+%patch6 -p1
+
+#add tcp_wrapper support
+%patch7 -p1
+
+#description of redir
+%patch8 -p1
+
+#comestic only patch
+%patch9 -p1
+
+# do not stripping needed for debug-info package
+%patch10 -p1
+
+#make usage os setsockopt more verbose
+%patch11 -p1
+
+#Clean up questionable formatting in man page
+%patch12 -p1
+
+#fix compile warning with gcc 4.4
+%patch13 -p2
+
+# fix location of transproxy.txt
+%patch14 -p2
+
+# Convert to utf-8
+for file in CHANGES; do
+    mv $file timestamp
+    iconv -f ISO-8859-1 -t UTF-8 -o $file timestamp
+    touch -r timestamp $file
+done
 
 %build
-%make EXTRA_CFLAGS="$RPM_OPT_FLAGS"
+%make CFLAGS="%{optflags}" LDFLAGS="%{optflags}"
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-install %{name} -D $RPM_BUILD_ROOT%{_sbindir}/%{name}
-install %{name}.man -D $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
-
-%clean
-rm -rf $RPM_BUILD_ROOT
+install -Dp -m 755 %{name} %{buildroot}%{_sbindir}/%{name}
+install -Dp -m 644 %{name}.man %{buildroot}%{_mandir}/man1/%{name}.1
 
 %files
-%defattr(644,root,root,755)
-%doc README trans*.txt
-%attr(755,root,root) %{_sbindir}/%{name}
+%doc README CHANGES COPYING trans*.txt
+%{_sbindir}/%{name}
 %{_mandir}/man1/%{name}.1*
-
-
-
-
-%changelog
-* Tue Sep 08 2009 Thierry Vignaud <tvignaud@mandriva.com> 2.2.1-9mdv2010.0
-+ Revision: 433089
-- rebuild
-
-* Fri Aug 01 2008 Thierry Vignaud <tvignaud@mandriva.com> 2.2.1-8mdv2009.0
-+ Revision: 260205
-- rebuild
-
-* Fri Jul 25 2008 Thierry Vignaud <tvignaud@mandriva.com> 2.2.1-7mdv2009.0
-+ Revision: 248331
-- rebuild
-
-* Wed Jan 02 2008 Olivier Blin <oblin@mandriva.com> 2.2.1-5mdv2008.1
-+ Revision: 140744
-- restore BuildRoot
-
-  + Thierry Vignaud <tvignaud@mandriva.com>
-    - kill re-definition of %%buildroot on Pixel's request
-    - kill changelog left by repsys
-
-
-* Fri Jul 14 2006 Olivier Thauvin <nanardon@mandriva.org>
-+ 2006-07-14 19:29:14 (41143)
-- %%mkrel and rebuild
-
-* Fri Jul 14 2006 Olivier Thauvin <nanardon@mandriva.org>
-+ 2006-07-14 19:27:30 (41142)
-- Import redir
-
-* Sat Aug 28 2004 Olivier Thauvin <thauvin@aerov.jussieu.fr> 2.2.1-4mdk
-- rebuild because changelog size does matter
-
-* Mon Aug 04 2003 Per Øyvind Karlsen <peroyvind@linux-mandrake.com> 2.2.1-3mdk
-- rebuild
-- cosmetics
-- fix filename of man page
-- compile with $RPM_OPT_FLAGS
-
