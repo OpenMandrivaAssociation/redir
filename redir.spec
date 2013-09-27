@@ -7,7 +7,7 @@ Group:          Networking/Other
 License:        GPL+
 URL:            http://sammy.net/~sammy/hacks/
 Source0:        http://sammy.net/~sammy/hacks/%{name}-%{version}.tar.gz
-BuildRequires: tcp_wrappers-devel
+BuildRequires:	tcp_wrappers-devel
 
 #Include Debian Patches
 Patch0:         01_fix_max_bandwidth_docs.dpatch
