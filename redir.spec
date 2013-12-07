@@ -1,6 +1,6 @@
 Name:           redir
 Version:        2.2.1
-Release:        12
+Release:        13
 Summary:        Redirect TCP connections
 
 Group:          Networking/Other
