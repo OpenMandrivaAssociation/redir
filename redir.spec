@@ -91,10 +91,10 @@ done
 %make CFLAGS="%{optflags}" LDFLAGS="%{optflags}"
 
 %install
-install -Dp -m 755 %{name} %{buildroot}%{_sbindir}/%{name}
+install -Dp -m 755 %{name} %{buildroot}%{_bindir}/%{name}
 install -Dp -m 644 %{name}.man %{buildroot}%{_mandir}/man1/%{name}.1
 
 %files
 %doc README CHANGES COPYING trans*.txt
-%{_sbindir}/%{name}
+%{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
