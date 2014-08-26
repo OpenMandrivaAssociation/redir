@@ -1,0 +1,12 @@
+diff -ruNp a/redir-2.2.1/redir.man b/redir-2.2.1/redir.man
+--- a/redir-2.2.1/redir.man	2009-04-06 13:21:06.000000000 -0300
++++ b/redir-2.2.1/redir.man	2009-04-06 13:23:59.000000000 -0300
+@@ -91,7 +91,7 @@ undesirable. 
+ .B \-\-transproxy
+ On a linux system with transparent proxying enabled, causes redir to
+ make connections appear as if they had come from their true origin.
+-(see /usr/share/doc/redir/transproxy.txt)
++(see /usr/share/doc/redir-2.2.1/transproxy.txt)
+ .TP
+ .B \-\-connect
+ Redirects connections through an HTTP proxy which supports the CONNECT 

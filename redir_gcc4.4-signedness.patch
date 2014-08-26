@@ -1,0 +1,32 @@
+Binary files a/redir-2.2.1/redir and b/redir-2.2.1/redir differ
+diff -ruNp a/redir-2.2.1/redir.c b/redir-2.2.1/redir.c
+--- a/redir-2.2.1/redir.c	2009-04-04 16:36:24.000000000 -0300
++++ b/redir-2.2.1/redir.c	2009-04-04 16:46:06.000000000 -0300
+@@ -461,7 +461,7 @@ void ftp_clean(int send, char *buf, unsi
+ 	int lport, rport;
+ 	int remip[4];
+ 	int localsock;
+-	size_t socksize = sizeof(struct sockaddr_in);
++	unsigned int socksize = sizeof(struct sockaddr_in);
+ 
+ 	struct sockaddr_in newsession;
+ 	struct sockaddr_in sockname;
+@@ -721,7 +721,7 @@ do_accept(int servsock, struct sockaddr_
+ 	int clisock;
+ 	int targetsock;
+ 	struct sockaddr_in client;
+-	size_t clientlen = sizeof(client);
++	unsigned int clientlen = sizeof(client);
+ 	int accept_errno;
+      
+ 	debug("top of accept loop\n");
+@@ -1080,7 +1080,7 @@ main(int argc, char *argv[])
+ 	if (inetd) {
+ 		int targetsock;
+ 		struct sockaddr_in client;
+-		size_t client_size = sizeof(client);
++		unsigned int client_size = sizeof(client);
+ 
+ #ifdef USE_TCP_WRAPPERS
+ 		request_init(&request, RQ_DAEMON, ident, RQ_FILE, 0, 0);
+Binary files a/redir-2.2.1/redir.o and b/redir-2.2.1/redir.o differ
