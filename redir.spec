@@ -1,7 +1,7 @@
 Summary:	Redirect TCP connections
 Name:		redir
 Version:	3.3
-Release:	1
+Release:	2
 Group:		Networking/Other
 License:	GPLv2+
 Url:		http://sammy.net/~sammy/hacks/
