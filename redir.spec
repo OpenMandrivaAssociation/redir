@@ -6,6 +6,11 @@ Group:		Networking/Other
 License:	GPLv2+
 Url:		https://sammy.net/~sammy/hacks/
 Source0:	https://github.com/troglobit/redir/archive/v%{version}.tar.gz
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	tcp_wrappers-devel
 
 %description
